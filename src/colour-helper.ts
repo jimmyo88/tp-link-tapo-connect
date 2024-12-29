@@ -79,10 +79,21 @@ export const temperature = (temp: string) => {
   };
 }
 
-export const getColour = (colour: string) => {
+export const getColour = (colour: string): any => {
   colour = colour.toLowerCase();
-  if (colour.startsWith('#')) return hexToHsl(colour);
-  if (colour.endsWith('k')) return temperature(colour);
-  if (Object.keys(presetColours).includes(colour)) return presetColours[colour];
-  throw new Error('Invalid Colour');
-}
+
+  let params;
+  if (colour.startsWith('#')) {
+    params = hexToHsl(colour);
+  } else if (colour.endsWith('k')) {
+    params = temperature(colour);
+  } else if (Object.keys(presetColours).includes(colour)) {
+    params = presetColours[colour];
+  } else {
+    throw new Error('Invalid Colour');
+  }
+
+  if (!params.color_temp) params.color_temp = 0;
+
+  return params;
+};
