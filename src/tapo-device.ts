@@ -24,9 +24,7 @@ export const TapoDevice = ({ send }: TapoProtocol) => {
 
     return {
       turnOn: () => setDeviceOn(true),
-
       turnOff: () => setDeviceOn(false),
-
       setBrightness: async (brightnessLevel: number = 100) => {
         const setBrightnessRequest = {
           "method": "set_device_info",
